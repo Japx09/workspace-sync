@@ -2,8 +2,10 @@ name: Workspace State Sync
 
 on:
   schedule:
-    # Runs at 12:00 PM (Noon) PHT / GMT+8 (which is 04:00 AM UTC)
-    - cron: '0 4 * * *'
+    # Primary trigger: 12:15 PM PHT (04:15 UTC) - offset minute avoids heavy queue delays
+    - cron: '15 4 * * *'
+    # Backup trigger: 7:30 PM PHT (11:30 UTC) - guarantees no missed days even if GitHub drops a run
+    - cron: '30 11 * * *'
   workflow_dispatch: # Allows you to manually trigger it from the Actions tab
 
 jobs:
